@@ -1,26 +1,22 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* แม็พฟอนต์จาก next/font ให้ Tailwind ใช้งานเป็น --font-sans / --font-mono */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Base utilities ที่ไม่ไปชนกับธีม */
+@layer base {
+  /* ให้ระบบ/เบราว์เซอร์รู้ว่าหน้ารองรับทั้ง light/dark */
+  :root { color-scheme: light dark; }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* ใช้ฟอนต์จาก --font-sans แทนที่ Arial */
+  body { @apply font-sans; }
+
+  /* สี selection ให้เข้ากับธีม */
+  * {
+    @apply selection:bg-black selection:text-white
+           dark:selection:bg-white dark:selection:text-black;
+  }
 }
